@@ -16,7 +16,7 @@ curl -L -o "$TMP_FILE" --skip-existing --create-dirs \
     --output-dir "$TMP_PATH" "$DOWNLOAD_URL" 
 
 # Kill Discord processes
-for pid in $(pgrep Discord); do
+for PID in $(pgrep Discord); do
     kill -9 $PID
     echo "Killed Discord process with PID $PID"
 done
