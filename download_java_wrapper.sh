@@ -41,37 +41,37 @@ EOF
 
 # Helper functions to ease testing
 # Can be overloaded in the bats test
-get_gradle_wrapper_url () {
-    return $GRADLE_WRAPPER_URL
+get_gradle_wrapper_url() {
+    echo $GRADLE_WRAPPER_URL
 }
 
-get_maven_wrapper_url () {
-    return $MAVEN_WRAPPER_URL
+get_maven_wrapper_url() {
+    echo $MAVEN_WRAPPER_URL
 }
 
 # Lowercase wrapper type so the value can be of either case.
 declare -l wrapper_type
 declare isDebug=false
 
-print () {
+print() {
     msg=$1
     [[ -z "$2" || "$2" -ne 0 ]] && msg="$msg\n"
     echo -e "$msg"
 }
 
-die () {
+die() {
     echo -e "${2:-$MSG}"
     exit "${1:-0}"
 }
 
-print_version () {
+print_version() {
     arg_count=$1 
     if [[ $arg_count -eq 1 ]]; then 
         die 0 "Version: $SCRIPT_VERSION"
     fi
 }
 
-debug () {
+debug() {
     [ $# -lt 1 ] && return 0 
 
     if $isDebug; then
@@ -79,14 +79,14 @@ debug () {
     fi
 }
 
-if_dist_exist () {
+if_dist_exist() {
     curl -s "$1"
     curl_exit_status=$?
 
     return $curl_exit_status
 }
 
-handle_response () {
+handle_response() {
     curl_exit_stat=$1
 
     debug "Curl exit code is $curl_exit_stat"
@@ -121,12 +121,12 @@ debug "Current positional argument $1"
 # Assign default values
 if [[ "$wrapper_type" = "g" || "$wrapper_type" = "gradle" ]]; then 
     wrapper_type="gradle"
-    wrapper_url=get_gradle_wrapper_url
+    wrapper_url=$(get_gradle_wrapper_url)
     : "${dist_version:=$GRADLE_VERSION}"
     dist_url=${GRADLE_DIST_URL//'$GRADLE_VERSION'/"$dist_version"}
 elif [[ "$wrapper_type" = "m" || "$wrapper_type" = "maven" ]]; then 
     wrapper_type="maven"
-    wrapper_url=get_maven_wrapper_url
+    wrapper_url=$(get_maven_wrapper_url)
     : "${dist_version:=$MAVEN_VERSION}"
     dist_url="${MAVEN_DIST_URL//'$MAVEN_VERSION'/"$dist_version"}"
 else
