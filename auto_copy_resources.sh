@@ -339,10 +339,10 @@ procId="$!"
 bgProcIds+=("$procId")
 debug "Background process with id: $procId added to bgProcIds"
 
-# process &
-# procId="$!"
-# bgProcIds+=("$procId")
-# debug "Background process with id: $procId added to bgProcIds"
+process &
+procId="$!"
+bgProcIds+=("$procId")
+debug "Background process with id: $procId added to bgProcIds"
 
 # Main logic using inotifywait adds the filtered files 
 # into the pre-process queue
