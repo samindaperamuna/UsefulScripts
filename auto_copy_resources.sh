@@ -18,7 +18,7 @@ FILES_TO_PROCESS_LOCK=$TMP_DIR/files_to_process.lock
 # Usage message
 MSG=$(cat <<EOF
 Usage: $0 [-option] 
-    Watch the files and directories provided in file $(basename "$WATCH_FILE") for changes \
+    Watch the files and directories provided in file "$(basename "$WATCH_FILE")" for changes \
 and copy changes into the target directory.
         
         Options:
@@ -316,6 +316,9 @@ do
         \?) die 1 "Invalid option: -${OPTARG}\n\n$MSG";;
     esac
 done
+
+# Check if watch file exists.
+[ ! -f "$WATCH_FILE" ] && die 1 "Cannot find watch file: $WATCH_FILE"
 
 # Shift positional parameters by 
 shift $(($OPTIND - 1))
