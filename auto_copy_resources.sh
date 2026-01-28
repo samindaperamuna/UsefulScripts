@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+# Recognize symbolic links and adjust working directory accordingly
+# SCRIPT_DIR="$(dirname "$(readlink "${BASH_SOURCE[0]}")")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 WATCH_FILE="$SCRIPT_DIR/resources"
 OUT_FILE="$SCRIPT_DIR/auto_copy.log"
